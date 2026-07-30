@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "question": "What is your age?",
+        "type": "number"
+    },
+    {
+        "id": 2,
+        "question": "What is your monthly income (PKR)?",
+        "type": "number"
+    },
+    {
+        "id": 3,
+        "question": "What are your monthly expenses (PKR)?",
+        "type": "number"
+    },
+    {
+        "id": 4,
+        "question": "How much do you want to invest monthly?",
+        "type": "number"
+    },
+    {
+        "id": 5,
+        "question": "What is your investment goal?",
+        "type": "select",
+        "options": [
+            "wealth creation",
+            "retirement",
+            "saving",
+            "short term goal"
+        ]
+    },
+    {
+        "id": 6,
+        "question": "What is your risk tolerance?",
+        "type": "select",
+        "options": [
+            "low",
+            "medium",
+            "high"
+        ]
+    },
+    {
+        "id": 7,
+        "question": "How many months of emergency fund do you have?",
+        "type": "number"
+    },
+    {
+        "id": 8,
+        "question": "Do you have existing debt?",
+        "type": "select",
+        "options": [
+            "none",
+            "low",
+            "high"
+        ]
+    }
+]
