@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "KTrade",
+    "type": "Stock Broker",
+    "market": "Pakistan Stock Exchange",
+    "minimum_investment": 5000,
+    "features": [
+      "PSX Trading",
+      "Mobile App",
+      "Research Reports"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "JS Global",
+    "type": "Stock Broker",
+    "market": "Pakistan Stock Exchange",
+    "minimum_investment": 5000,
+    "features": [
+      "Online Trading",
+      "Investment Advisory",
+      "Market Updates"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "AKD Securities",
+    "type": "Stock Broker",
+    "market": "Pakistan Stock Exchange",
+    "minimum_investment": 10000,
+    "features": [
+      "Professional Trading Platform",
+      "Research",
+      "Portfolio Management"
+    ]
+  }
+]

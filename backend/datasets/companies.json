@@ -1,0 +1,32 @@
+[
+    {
+        "symbol": "ENGRO",
+        "name": "Engro Corporation",
+        "sector": "Conglomerate",
+        "market_cap": "Large Cap"
+    },
+    {
+        "symbol": "LUCK",
+        "name": "Lucky Cement",
+        "sector": "Cement",
+        "market_cap": "Large Cap"
+    },
+    {
+        "symbol": "MCB",
+        "name": "MCB Bank",
+        "sector": "Banking",
+        "market_cap": "Large Cap"
+    },
+    {
+        "symbol": "HUBC",
+        "name": "Hub Power Company",
+        "sector": "Power",
+        "market_cap": "Large Cap"
+    },
+    {
+        "symbol": "SYS",
+        "name": "Systems Limited",
+        "sector": "Technology",
+        "market_cap": "Large Cap"
+    }
+]
