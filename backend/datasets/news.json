@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "ENGRO reports strong quarterly earnings",
+    "company": "ENGRO",
+    "category": "Earnings",
+    "date": "2026-08-01",
+    "summary": "Engro announced better-than-expected quarterly profits driven by strong fertilizer sales."
+  },
+  {
+    "id": 2,
+    "title": "Lucky Cement expands production",
+    "company": "LUCK",
+    "category": "Business",
+    "date": "2026-08-02",
+    "summary": "Lucky Cement plans to expand production capacity to meet increasing demand."
+  },
+  {
+    "id": 3,
+    "title": "PSX closes at record high",
+    "company": "",
+    "category": "Market",
+    "date": "2026-08-02",
+    "summary": "The Pakistan Stock Exchange closed at a new all-time high amid strong investor confidence."
+  },
+  {
+    "id": 4,
+    "title": "MCB Bank announces dividend",
+    "company": "MCB",
+    "category": "Dividend",
+    "date": "2026-08-01",
+    "summary": "MCB Bank declared its latest cash dividend for shareholders."
+  },
+  {
+    "id": 5,
+    "title": "Systems Limited secures international contract",
+    "company": "SYS",
+    "category": "Technology",
+    "date": "2026-08-02",
+    "summary": "Systems Limited signed a major international software outsourcing agreement."
+  }
+]
