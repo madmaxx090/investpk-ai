@@ -1,33 +1,30 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+from typing import List, Any
 
 
 class AssessmentRequest(BaseModel):
-    age: int = Field(..., ge=18, le=100)
-
-    monthly_income: float = Field(..., ge=0)
-
-    monthly_expenses: float = Field(..., ge=0)
-
-    investment_amount: float = Field(..., ge=0)
-
+    age: int
+    monthly_income: float
+    monthly_expenses: float
+    investment_amount: float
     investment_goal: str
-
     investment_horizon: str
-
     risk_tolerance: str
-
-    emergency_fund_months: int = Field(..., ge=0)
-
+    emergency_fund_months: int
     debt_level: str
-
     investing_experience: str
 
 
 class AssessmentResponse(BaseModel):
     readiness_score: int
-
     readiness_level: str
 
-    recommendation: str
+    recommendation: List[str]
+
+    warnings: List[str]
+
+    suggested_companies: List[Any]
+
+    suggested_brokers: List[Any]
 
     explanation: str
