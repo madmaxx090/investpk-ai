@@ -1,49 +1,59 @@
+from app.services.company_service import CompanyService
+from app.services.market_service import MarketService
+from app.services.news_service import NewsService
+
+
 class InvestmentEngine:
 
-    def generate_plan(
-        self,
-        user,
-        companies
-    ):
-
-        plan = []
-
-        for company in companies:
-
-            reason = []
-
-            # Risk matching
-            if user.risk_tolerance.lower() == "medium":
-                reason.append(
-                    "Suitable for balanced risk investors"
-                )
-
-            elif user.risk_tolerance.lower() == "high":
-                reason.append(
-                    "Suitable for growth-focused investors"
-                )
-
-            else:
-                reason.append(
-                    "Considered relatively stable"
-                )
+    def __init__(self):
+        self.company_service = CompanyService()
+        self.market_service = MarketService()
+        self.news_service = NewsService()
 
 
-            # Investment horizon
-            if "5" in user.investment_horizon:
-                reason.append(
-                    "Matches long-term investment horizon"
-                )
+    def generate_company_analysis(self, symbol, risk_tolerance, horizon):
+
+        company = self.company_service.get_company(symbol)
+
+        market = self.market_service.get_stock(symbol)
+
+        news = self.news_service.get_news(
+            company=symbol
+        )
 
 
-            plan.append(
-                {
-                    "company": company["name"],
-                    "symbol": company["symbol"],
-                    "sector": company["sector"],
-                    "reason": reason
-                }
+        reasons = []
+
+
+        # Risk matching
+        if risk_tolerance.lower() == "medium":
+            reasons.append(
+                "Suitable for balanced risk investors"
+            )
+
+        elif risk_tolerance.lower() == "high":
+            reasons.append(
+                "Suitable for growth-oriented investors"
+            )
+
+        else:
+            reasons.append(
+                "Suitable for conservative investors"
             )
 
 
-        return plan
+        # Horizon matching
+        if "5" in str(horizon):
+            reasons.append(
+                "Matches long-term investment horizon"
+            )
+
+
+        return {
+            "company": company["name"],
+            "symbol": company["symbol"],
+            "sector": company["sector"],
+            "reasons": reasons,
+            "market_data": market,
+            "recent_news": news[:3]
+        }

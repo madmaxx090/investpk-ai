@@ -13,6 +13,7 @@ from app.schemas.question import Question
 from app.decision_engine.readiness_engine import ReadinessEngine
 from app.decision_engine.recommendation_engine import RecommendationEngine
 from app.decision_engine.investment_engine import InvestmentEngine
+from app.decision_engine.company_ranking_engine import CompanyRankingEngine
 
 
 router = APIRouter()
@@ -23,6 +24,7 @@ question_service = QuestionService()
 readiness_engine = ReadinessEngine()
 recommendation_engine = RecommendationEngine()
 investment_engine = InvestmentEngine()
+company_ranking_engine = CompanyRankingEngine()
 
 
 
@@ -35,22 +37,37 @@ def get_questions():
 @router.post("/", response_model=AssessmentResponse)
 def assess(request: AssessmentRequest):
 
-    # Calculate financial readiness score
+    # 1. Calculate financial readiness
     score = readiness_engine.calculate_score(request)
 
 
-    # Generate recommendations
+    # 2. Generate general recommendations
     decision = recommendation_engine.generate_recommendation(
         request,
         score
     )
 
 
-    # Generate company investment explanation
-    investment_plan = investment_engine.generate_plan(
-        request,
-        decision["suggested_companies"]
+    # 3. Rank suitable companies dynamically
+    ranked_companies = company_ranking_engine.rank_companies(
+        risk_tolerance=request.risk_tolerance,
+        investment_horizon=request.investment_horizon
     )
+
+
+    # 4. Generate detailed investment explanation
+    investment_plan = []
+
+    for company in ranked_companies:
+
+        analysis = investment_engine.generate_company_analysis(
+            symbol=company["symbol"],
+            risk_tolerance=request.risk_tolerance,
+            horizon=request.investment_horizon
+        )
+
+        investment_plan.append(analysis)
+
 
 
     return AssessmentResponse(
@@ -62,7 +79,7 @@ def assess(request: AssessmentRequest):
         suggested_brokers=decision["suggested_brokers"],
         explanation=(
             f"Your financial readiness score is {decision['score']}/100. "
-            "The recommendation considers your income, expenses, risk profile, "
-            "investment experience, and financial stability."
+            "Companies were selected based on your risk profile, "
+            "investment horizon, and financial situation."
         ),
     )
