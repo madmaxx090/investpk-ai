@@ -15,6 +15,8 @@ from app.decision_engine.recommendation_engine import RecommendationEngine
 from app.decision_engine.investment_engine import InvestmentEngine
 from app.decision_engine.company_ranking_engine import CompanyRankingEngine
 
+from app.ai.llm import LLMEngine
+
 
 router = APIRouter()
 
@@ -25,6 +27,7 @@ readiness_engine = ReadinessEngine()
 recommendation_engine = RecommendationEngine()
 investment_engine = InvestmentEngine()
 company_ranking_engine = CompanyRankingEngine()
+llm_engine = LLMEngine()
 
 
 
@@ -37,25 +40,25 @@ def get_questions():
 @router.post("/", response_model=AssessmentResponse)
 def assess(request: AssessmentRequest):
 
-    # 1. Calculate financial readiness
+    # 1. Calculate financial readiness score
     score = readiness_engine.calculate_score(request)
 
 
-    # 2. Generate general recommendations
+    # 2. Generate recommendation based on user profile
     decision = recommendation_engine.generate_recommendation(
         request,
         score
     )
 
 
-    # 3. Rank suitable companies dynamically
+    # 3. Dynamically rank companies
     ranked_companies = company_ranking_engine.rank_companies(
         risk_tolerance=request.risk_tolerance,
         investment_horizon=request.investment_horizon
     )
 
 
-    # 4. Generate detailed investment explanation
+    # 4. Generate company investment analysis
     investment_plan = []
 
     for company in ranked_companies:
@@ -70,6 +73,15 @@ def assess(request: AssessmentRequest):
 
 
 
+    # 5. Generate AI explanation
+    ai_explanation = llm_engine.generate_explanation(
+        request,
+        investment_plan
+    )
+
+
+
+    # 6. Return final assessment
     return AssessmentResponse(
         readiness_score=decision["score"],
         readiness_level=decision["status"],
@@ -77,9 +89,5 @@ def assess(request: AssessmentRequest):
         warnings=decision["warnings"],
         suggested_companies=investment_plan,
         suggested_brokers=decision["suggested_brokers"],
-        explanation=(
-            f"Your financial readiness score is {decision['score']}/100. "
-            "Companies were selected based on your risk profile, "
-            "investment horizon, and financial situation."
-        ),
+        explanation=ai_explanation,
     )
