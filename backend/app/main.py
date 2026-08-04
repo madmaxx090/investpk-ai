@@ -2,9 +2,9 @@ from fastapi import FastAPI
 
 from app.api.assessment import router as assessment_router
 from app.api.brokers import router as broker_router
-from app.api.company import router as company_router
 from app.api.market import router as market_router
 from app.api.news import router as news_router
+from app.api.routes.company import router as company_router
 
 app = FastAPI(
     title="InvestPK AI",
@@ -25,12 +25,8 @@ app.include_router(
     tags=["Brokers"],
 )
 
-# Company API
-app.include_router(
-    company_router,
-    prefix="/companies",
-    tags=["Companies"],
-)
+# Company API (Real PSX Data)
+app.include_router(company_router)
 
 # Market API
 app.include_router(
